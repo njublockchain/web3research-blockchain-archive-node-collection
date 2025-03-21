@@ -1,0 +1,28 @@
+name: w3r
+
+services:
+  beacon:
+    restart: unless-stopped
+    image: sigp/lighthouse:v6.0.1
+    depends_on:
+      - ethereum
+    ports:
+      - '5052:5052/tcp' # rpc
+      - '5053:5053/tcp'
+      - '5054:5054/tcp' # metrics
+      # - '9000:9000/tcp' # p2p
+      # - '9000:9000/udp' # p2p
+    volumes:
+      - ${BEACON_STORAGE}:/root/.lighthouse
+      - ./jwttoken:/root/jwt:ro
+    # For Sepolia:
+    # - Replace `--network mainnet` with `--network sepolia`
+    # - Use different checkpoint sync URL: `--checkpoint-sync-url https://sepolia.checkpoint-sync.ethpandaops.io`
+    command: >
+      lighthouse bn
+      --network mainnet --genesis-backfill --disable-backfill-rate-limiting --purge-db-force
+      --http --http-address 0.0.0.0 --http-allow-origin *
+      --execution-endpoint http://ethereum:8551
+      --metrics --metrics-address 0.0.0.0
+      --execution-jwt /root/jwt/jwt.hex
+      --checkpoint-sync-url https://mainnet-checkpoint-sync.stakely.io
