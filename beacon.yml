@@ -20,9 +20,13 @@ services:
     # - Use different checkpoint sync URL: `--checkpoint-sync-url https://sepolia.checkpoint-sync.ethpandaops.io`
     command: >
       lighthouse bn
-      --network mainnet --genesis-backfill --disable-backfill-rate-limiting --purge-db-force
+      --network mainnet 
+      --genesis-backfill 
+      --disable-backfill-rate-limiting
       --http --http-address 0.0.0.0 --http-allow-origin *
       --execution-endpoint http://ethereum:8551
       --metrics --metrics-address 0.0.0.0
       --execution-jwt /root/jwt/jwt.hex
       --checkpoint-sync-url https://mainnet-checkpoint-sync.stakely.io
+      --prune-blobs false
+      --reconstruct-historic-states
