@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  bitcoin:
+    image: lncm/bitcoind:v27.2
+    volumes:
+      - ${BITCOIN_STORAGE}:/data/.bitcoin # data in /bitcoin/.bitcoin
+    container_name: bitcoin
+    restart: unless-stopped
+    stop_grace_period: 15m30s
+    ports: 
+      - "8333:8333"
+      - "8332:8332"
+      - "28332:28332"
+      - "28333:28333"
