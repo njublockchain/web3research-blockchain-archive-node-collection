@@ -1,11 +1,11 @@
-version: "3"
+name: w3r
 
 services:
   bitcoin:
     image: lncm/bitcoind:v27.2
+    user: 1000:1000
     volumes:
       - ${BITCOIN_STORAGE}:/data/.bitcoin # data in /bitcoin/.bitcoin
-    container_name: bitcoin
     restart: unless-stopped
     stop_grace_period: 15m30s
     ports: 
