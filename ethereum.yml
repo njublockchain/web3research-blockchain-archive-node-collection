@@ -3,7 +3,7 @@ name: w3r
 services:
   ethereum:
     restart: unless-stopped
-    image: ghcr.io/paradigmxyz/reth:v1.1.4
+    image: ghcr.io/paradigmxyz/reth:v1.4.3
     ports:
       - "9001:9001" # metrics
       - "30303:30303" # eth/66 peering
