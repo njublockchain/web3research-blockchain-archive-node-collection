@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  tron:
+    image: ghcr.io/c0mm4nd/tron-container:dev
+    ports:
+      - 5555:5555 # ZeroMQ
+      - 50545:8545 # HTTP JSON RPC
+      - 8090:8090 # HTTP Restful API
+      - 50051:50051 # gRPC
+    environment:
+      - HEAP_SIZE=64g
+    volumes:
+      # though the container will automatically download the latest FullNode.jar, it is recommended to use a specific version
+      - ${TRON_STORAGE}/FullNode.jar:/tron/FullNode.jar 
+      - ${TRON_STORAGE}/output-directory:/tron/output-directory/
+    restart: unless-stopped

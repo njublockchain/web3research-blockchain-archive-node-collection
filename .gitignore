@@ -1,2 +1,5 @@
 .env
 jwttoken/
+
+# tron
+FullNode.jar
