@@ -2,7 +2,7 @@ name: w3r
 
 services:
   bitcoin:
-    image: lncm/bitcoind:v27.2
+    image: lncm/bitcoind:v28.0
     user: 1000:1000
     volumes:
       - ${BITCOIN_STORAGE}:/data/.bitcoin # data in /bitcoin/.bitcoin
@@ -13,3 +13,10 @@ services:
       - "8332:8332"
       - "28332:28332"
       - "28333:28333"
+    command: >
+      -disablewallet
+      -server -rest -rpcuser=${BITCOIN_RPC_USER} -rpcpassword=${BITCOIN_RPC_PASSWORD} -rpcport=8332 -rpcallowip=0.0.0.0/0
+      -zmqpubrawblock=tcp://0.0.0.0:28332
+      -zmqpubrawtx=tcp://0.0.0.0:28333
+      -txindex=1 
+      -coinstatsindex=1
