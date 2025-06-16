@@ -17,6 +17,8 @@ services:
       -disablewallet
       -server -rest -rpcuser=${BITCOIN_RPC_USER} -rpcpassword=${BITCOIN_RPC_PASSWORD} -rpcbind=0.0.0.0:8332 -rpcallowip=0.0.0.0/0
       -zmqpubrawblock=tcp://0.0.0.0:28332
+      -rpcthreads=256
+      -dbcache=16384
       -zmqpubrawtx=tcp://0.0.0.0:28333
       -txindex=1 
       -coinstatsindex=1
