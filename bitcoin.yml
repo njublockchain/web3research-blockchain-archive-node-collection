@@ -4,6 +4,10 @@ services:
   bitcoin:
     image: lncm/bitcoind:v28.0
     user: 1000:1000
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
     volumes:
       - ${BITCOIN_STORAGE}:/data/.bitcoin # data in /bitcoin/.bitcoin
     restart: unless-stopped
@@ -28,6 +32,10 @@ services:
     restart: unless-stopped
     depends_on:
       - bitcoin
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
     command: >
       --network mainnet
       --daemon-dir /data/.bitcoin
@@ -38,6 +46,8 @@ services:
       --monitoring-addr 0.0.0.0:4224
       --cookie ${BITCOIN_RPC_USER}:${BITCOIN_RPC_PASSWORD}
       --address-search
+      --index-unspendables
+      --cors '*'
       -vv
     ports:
       - "50001:50001"
