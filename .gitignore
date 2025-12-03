@@ -5,6 +5,7 @@ jwttoken/
 FullNode.jar
 
 bitcoind/
+electrs/
 beacon/
 ethereum/
 tron/

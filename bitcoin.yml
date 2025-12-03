@@ -22,3 +22,27 @@ services:
       -zmqpubrawtx=tcp://0.0.0.0:28333
       -txindex=1 
       -coinstatsindex=1
+
+  electrs:
+    image: mempool/electrs:latest
+    restart: unless-stopped
+    depends_on:
+      - bitcoin
+    command: >
+      --network mainnet
+      --daemon-dir /data/.bitcoin
+      --db-dir /data/electrs
+      --daemon-rpc-addr bitcoin:8332
+      --electrum-rpc-addr 0.0.0.0:50001
+      --http-addr 0.0.0.0:3000
+      --monitoring-addr 0.0.0.0:4224
+      --cookie ${BITCOIN_RPC_USER}:${BITCOIN_RPC_PASSWORD}
+      --address-search
+      -vv
+    ports:
+      - "50001:50001"
+      - "3000:3000"
+      - "4224:4224"
+    volumes:
+      - ${BITCOIN_STORAGE}:/data/.bitcoin:ro
+      - ${ELECTRS_STORAGE:-./electrs}:/data/electrs
