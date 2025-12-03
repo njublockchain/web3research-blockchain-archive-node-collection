@@ -3,3 +3,8 @@ jwttoken/
 
 # tron
 FullNode.jar
+
+bitcoind/
+beacon/
+ethereum/
+tron/
